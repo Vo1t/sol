@@ -14,7 +14,6 @@ class Hero:
 			self.skill = 12
 			self.stamina = 24
 			self.luck = 12
-
 		self.damage = 2
 	def battle(self,sk,st,end=0,d=2):
 		r = 0
@@ -41,7 +40,32 @@ class Hero:
 				self.stamina = self.stamina-d2
 			r = r+1
 		return r + self.battle(sk2,st2,end,d2)
+	def testluck(self):
+		self.luck = self.luck-1
+		return (self.luck > dice()+4)
+	def testskill(self):
+		return (self.skill > dice()+5)
+	def clean(self):
+		self.skill = 12
+		self.stamina = 24
+		self.luck = 12
+		self.damage = 2
+	def st_change(self,diff):
+		self.stamina = self.stamina + diff
+	def tks(self):
+		self.clean()
+		self.battle(6,10)
+		self.st_change(-2)
+		self.battle(8,9)
+		self.skill = self.skill+1
+		self.stamina = 24
+		self.battle2(11,15,11,15,4)
+		return (self.stamina > 4)
+
 h1 = Hero(False)
-h1.battle2(10,15,10,15)
-print h1.stamina
- 
+w = 0
+l = 0
+for i in range(1,10000):
+	if h1.tks():
+		w = w+1
+print w/100 
